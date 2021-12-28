@@ -25,7 +25,20 @@
 *metamask
 
 
-#電路圖
+# 電路圖
+![image](https://user-images.githubusercontent.com/62298086/147538187-cd7c4f6c-cd86-407e-8d2f-ccdb890a965d.png)
+Transistor 可以選擇裝或不裝
+注意!此電路圖不包含鏡頭
+
+#流程圖
+
+
+#開始之前
+
+#建立
+
+
+
 
 
 
