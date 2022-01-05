@@ -61,22 +61,38 @@ Transistor 可以選擇裝或不裝，它的作用是用來控制蜂鳴器的叫
 3.投票智能合約與網站架設  
 
 
-因此在開始前，我們要先安裝利用區塊鏈所需的metamask跟網頁所需的nginx
+因此在開始前，我們要先做以下步驟:  
+1.安裝利用區塊鏈所需的metamask
+2.網頁所需的nginx
 
 ### 3-1.metamask安裝
 區塊鏈的部分我們採用 ethereum 與 metamask 的組合，這邊就必須要解釋甚麼是 ethereum
 
-####ethereum&metamask
+#### ethereum&metamask
 * ethereum  
 跟Bitcoin(比特幣)很像，但其多了一個功能我們稱之為叫做智能合約,而智能合約有一個作用就是我們可以支付一部分的加密貨幣，儲存、修改智能合約上的部分資訊。並且由於智能合約可在每個以太坊的節點上執行並進行驗證，因此是不可能竄改的
-[image](https://user-images.githubusercontent.com/62298086/148271090-54d74fc5-3746-4b29-b8fd-ae3cc0b18ba9.png)
 * metamask  
 是用於與以太坊區塊鏈進行交互的軟體加密貨幣錢包。它允許用戶通過瀏覽器擴展程序或行動應用程式訪問其以太坊錢包
-
-
-
+![image](https://user-images.githubusercontent.com/62298086/148272749-a2221f70-8bf3-4adb-83f0-9f41dfc4d0e6.png)
+#### metamask的安裝
+去chrome 線上應用程式商店 尋找 metamask 依步驟安裝即可，由於我們是測試，因此將資料發佈在測試鏈上(要不然會花錢)
+![image](https://user-images.githubusercontent.com/62298086/148273056-65f66565-27eb-45b5-9379-5bf19a23008c.png)
 
 ### 3-2.nginx安裝
+1.使用 apt 安裝基本的 NGINX 網頁伺服器：
+```
+sudo apt-get install nginx    
+```
+2. 檢查一下這個服務的狀態，如狀態為running，可打開瀏覽器127.0.0.1 會顯示welcome to nginx 
+```
+sudo apt-get install nginx    
+```
+
+
+
+
+
+
 
 
 ##建立
