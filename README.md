@@ -56,21 +56,21 @@ Transistor 可以選擇裝或不裝，它的作用是用來控制蜂鳴器的叫
 
 ## 五、開始之前
 我們會將這個系統拆成三個部分去做執行分別為  
-1.入侵偵測系統  
-2.rfid設備寫入與讀取  
-3.投票智能合約與網站架設  
+### 1.入侵偵測系統  
+### 2.rfid設備寫入與讀取  
+### 3.投票智能合約與網站架設  
 
 
 因此在開始前，我們要先做以下步驟:  
-1.安裝利用區塊鏈所需的metamask
-2.網頁所需的nginx
+1.安裝與區塊鏈溝通所需的metamask  
+2.網頁所需的server nginx  
 
 ### 3-1.metamask安裝
 區塊鏈的部分我們採用 ethereum 與 metamask 的組合，這邊就必須要解釋甚麼是 ethereum
 
 #### ethereum&metamask
 * ethereum  
-跟Bitcoin(比特幣)很像，但其多了一個功能我們稱之為叫做智能合約,而智能合約有一個作用就是我們可以支付一部分的加密貨幣，儲存、修改智能合約上的部分資訊。並且由於智能合約可在每個以太坊的節點上執行並進行驗證，因此是不可能竄改的
+跟Bitcoin(比特幣)很像，但其多了一個功能我們稱之為叫做智能合約,而智能合約有一個作用就是我們可以支付一部分的加密貨幣，儲存、修改智能合約上的部分資訊。並且由於智能合約可在每個以太坊的節點上執行並進行驗證，因此是不可能竄改的，而在此我們用來儲存選票
 * metamask  
 是用於與以太坊區塊鏈進行交互的軟體加密貨幣錢包。它允許用戶通過瀏覽器擴展程序或行動應用程式訪問其以太坊錢包
 ![image](https://user-images.githubusercontent.com/62298086/148272749-a2221f70-8bf3-4adb-83f0-9f41dfc4d0e6.png)
@@ -96,11 +96,92 @@ sudo apt-get install nginx
 
 
 ##建立
+我們一樣分為三個部分進行執行
+### 1.入侵偵測系統  
+### 2.rfid設備寫入與讀取  
+### 3.投票智能合約與網站架設  
+
+
+### 1.入侵偵測系統  
+這邊需安裝三項東西１．蜂鳴器　２．紅外線感測器　３．鏡頭　　
+運行腳本後，感應模塊每隔一定時間檢測，如有人靠近，則發出嗶嗶報警聲，並在屏幕印出提示信息，並且進行拍照（檔案存於本機端），人若離開，則停止鳴叫
+程是碼如下
+
+```python
+import RPi.GPIO as GPIO
+import time
+from picamera import PiCamera 
+from time import sleep 
+from datetime import datetime
+ 
+#初始化
+def init():
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(12,GPIO.IN)
+    GPIO.setup(26,GPIO.OUT)
+    pass
+ 
+#蜂鳴器鳴叫函數
+def beep():
+    while GPIO.input(12):
+        GPIO.output(26,GPIO.LOW)
+        time.sleep(0.5)
+        GPIO.output(26,GPIO.HIGH)
+        time.sleep(0.5)
+#紅外線感應器偵測函數
+def detct():
+    #因為是僅僅試驗，所以只讓它循環運行100次
+    camera = PiCamera() 
+    for i in range(1,101):
+        #如果感應器針腳輸出為True，則打印信息並執行蜂鳴器函數
+        if GPIO.input(12) == True:
+            print ("Someone isclosing!")
+            beep()
+            #呼叫 相機進行拍照，名稱為當下的年月日
+            localtime = time.localtime()
+            result = time.strftime("%Y%m%d%I%M%S%p", localtime)
+            camera.start_preview()
+            sleep(1)
+            ＃將照片存於桌面的camera_image資料夾中
+            camera.capture('/home/pi/Desktop/camera_image/image'+ str(result) +'.jpg')
+            camera.stop_preview()
+        #否則將蜂鳴器的針腳電平設置為HIGH
+        else:
+            GPIO.output(26,GPIO.HIGH)
+            print ("Noanybody!")
+            time.sleep(2)
+ 
+
+init()
+detct()
+#腳本運行完畢執行清理工作
+GPIO.cleanup()
+  
+```
 
 
 
-##參考連結
-* 區塊鏈: https://gasolin.gitbooks.io/learn-ethereum-dapp/content/what-is-smart-contract.html#fn_1
+
+## 參考連結　　
+* 區塊鏈知識 https://gasolin.gitbooks.io/learn-ethereum-dapp/content/what-is-smart-contract.html#fn_1　　
+* Rfid
+https://pimylifeup.com/raspberry-pi-rfid-rc522/　　
+
+* 蜂鳴器&紅外線感測
+https://shumeipai.nxez.com/2014/08/31/infrared-sensor-module-and-buzzer-alarm-achieve.html　　
+
+* 網站架設(nginx)
+https://blog.gtwang.org/iot/raspberry-pi-install-nginx-lightweight-web-server/
+
+* 智能合約撰寫
+https://ethereum.stackexchange.com/questions/79523/how-to-get-web3-to-interact-with-smart-contract-to-input-string-info
+
+* 網頁撰寫
+https://stackoverflow.com/questions/39276635/how-to-add-1-to-a-value-in-an-input-field-with-javascript-on-click
+
+
+
 
 
 
