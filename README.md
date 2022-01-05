@@ -85,7 +85,7 @@ sudo apt-get install nginx
 ```
 2. 檢查一下這個服務的狀態，如狀態為running，可打開瀏覽器127.0.0.1 會顯示welcome to nginx 
 ```
-sudo apt-get install nginx    
+service nginx status 
 ```
 
 
