@@ -134,16 +134,15 @@ def detct():
     #因為是僅僅試驗，所以只讓它循環運行100次
     camera = PiCamera() 
     for i in range(1,101):
-        #如果感應器針腳輸出為True，則打印信息並執行蜂鳴器函數
+        #如果感應器針腳輸出為True，則印出離開警告信息並執行蜂鳴器與拍照
         if GPIO.input(12) == True:
             print ("Someone isclosing!")
             beep()
-            #呼叫 相機進行拍照，名稱為當下的年月日
+            #呼叫相機進行拍照，名稱為當下的年月日，將照片存於桌面的camera_image資料夾中
             localtime = time.localtime()
             result = time.strftime("%Y%m%d%I%M%S%p", localtime)
             camera.start_preview()
             sleep(1)
-            ＃將照片存於桌面的camera_image資料夾中
             camera.capture('/home/pi/Desktop/camera_image/image'+ str(result) +'.jpg')
             camera.stop_preview()
         #否則將蜂鳴器的針腳電平設置為HIGH
