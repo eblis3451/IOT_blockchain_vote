@@ -327,9 +327,13 @@ function get_a() public view returns ( uint) {
 <div class="textstyle1">
   <img src="rc_images/323fcac99ac5w815h1019.jpeg" id="img_4813649a" alt="" title="" />
   <img src="rc_images/6b4bd691_fe83_49f4_8c2e_00fffadad9e7.jpg" id="img_3bca5026" alt="" title="" />
+</script>
 
-
-
+</body>
+</html>
+```
+後端的部分
+```php
 <<!--後端 web3的應用-->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
@@ -473,11 +477,8 @@ function get_a() public view returns ( uint) {
         updateHtmlData();
     }
     initContractLogic();
-</script>
-
-</body>
-</html>
 ```
+
 這樣就大功告成了!
 
 ## 參考連結　　
